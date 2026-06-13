@@ -1,0 +1,8 @@
+[phases.setup]
+nixPackages = ["php84", "php84Extensions.pdo", "php84Extensions.mbstring", "php84Extensions.xml", "php84Extensions.curl", "php84Extensions.gd", "php84Extensions.fileinfo", "php84Extensions.bcmath", "php84Extensions.tokenizer"]
+
+[phases.install]
+cmds = ["export COMPOSER_ALLOW_SUPERUSER=1 && composer install --optimize-autoloader --no-interaction"]
+
+[environment]
+COMPOSER_ALLOW_SUPERUSER = "1"
