@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Galeri;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class GaleriController extends Controller
 {
@@ -29,11 +30,11 @@ class GaleriController extends Controller
 
         $file = $request->file('foto');
         $filename = time() . '_' . $file->getClientOriginalName();
-        $file->move(public_path('uploads/galeri'), $filename);
+        $file->storeAs('uploads/galeri', $filename, 'public');
 
         Galeri::create([
             'judul_galeri' => $validated['judul_galeri'],
-            'foto' => '/uploads/galeri/' . $filename,
+            'foto' => '/storage/uploads/galeri/' . $filename,
             'deskripsi' => $validated['deskripsi'],
         ]);
 
@@ -61,8 +62,8 @@ class GaleriController extends Controller
         if ($request->hasFile('foto')) {
             $file = $request->file('foto');
             $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('uploads/galeri'), $filename);
-            $data['foto'] = '/uploads/galeri/' . $filename;
+            $file->storeAs('uploads/galeri', $filename, 'public');
+            $data['foto'] = '/storage/uploads/galeri/' . $filename;
         }
 
         $galeri->update($data);

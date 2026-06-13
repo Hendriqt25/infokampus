@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Berita;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class BeritaController extends Controller
 {
@@ -35,8 +36,8 @@ class BeritaController extends Controller
         if ($request->hasFile('foto')) {
             $file = $request->file('foto');
             $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('uploads/berita'), $filename);
-            $data['foto'] = '/uploads/berita/' . $filename;
+            $file->storeAs('uploads/berita', $filename, 'public');
+            $data['foto'] = '/storage/uploads/berita/' . $filename;
         }
 
         Berita::create($data);
@@ -65,8 +66,8 @@ class BeritaController extends Controller
         if ($request->hasFile('foto')) {
             $file = $request->file('foto');
             $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('uploads/berita'), $filename);
-            $data['foto'] = '/uploads/berita/' . $filename;
+            $file->storeAs('uploads/berita', $filename, 'public');
+            $data['foto'] = '/storage/uploads/berita/' . $filename;
         }
 
         $berita->update($data);
