@@ -11,11 +11,24 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     try {
         $heroBerita = Berita::latest()->take(3)->get();
+        $kabarPengumuman = Berita::where('jenis_berita', 'pengumuman-akademik')->latest()->first();
+        $kabarAktivitas = Berita::where('jenis_berita', 'aktivitas')->latest()->first();
+        $infoPrestasiKarir = Berita::whereIn('jenis_berita', ['prestasi', 'beasiswa-karir'])->latest()->take(3)->get();
+        $infoEvent = Berita::where('jenis_berita', 'events')->latest()->take(3)->get();
+        $galeriTerbaru = Galeri::latest()->take(3)->get();
     } catch (QueryException) {
         $heroBerita = collect();
+        $kabarPengumuman = null;
+        $kabarAktivitas = null;
+        $infoPrestasiKarir = collect();
+        $infoEvent = collect();
+        $galeriTerbaru = collect();
     }
 
-    return view('home', ['heroBerita' => $heroBerita]);
+    return view('home', compact(
+        'heroBerita', 'kabarPengumuman', 'kabarAktivitas',
+        'infoPrestasiKarir', 'infoEvent', 'galeriTerbaru'
+    ));
 });
 
 Route::get('/login', [AdminController::class, 'login'])->name('login');

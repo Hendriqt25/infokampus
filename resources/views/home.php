@@ -57,7 +57,16 @@
                     <span class="news-badge">KABAR KAMPUS</span>
                 </div>
 
-                <div class="news-grid" id="berita-terbaru"></div>
+                <div class="news-grid" id="berita-terbaru">
+                    <?php foreach ([$kabarPengumuman, $kabarAktivitas] as $item) { if (!$item) continue; ?>
+                    <article class="news-card" data-animate>
+                        <div class="news-card-image"><img src="<?= e($item->foto ?? '/image/kampus.webp') ?>" alt=""></div>
+                        <h3><?= e($item->judul_berita) ?></h3>
+                        <p><?= e(\Illuminate\Support\Str::limit($item->deskripsi, 150)) ?></p>
+                        <a href="/berita" class="news-read">Baca →</a>
+                    </article>
+                    <?php } ?>
+                </div>
             </div>
         </section>
 
@@ -79,10 +88,24 @@
                                 <a href="/berita" class="btn-baca">Baca Selengkapnya</a>
                             </div>
 
-                            <div class="info-carousel" data-category="beasiswa-karir">
+                            <div class="info-carousel" data-category="prestasi,beasiswa-karir">
                                 <a href="/berita" class="btn-lihat-semua">Lihat Semua ↗</a>
-                                <div class="carousel-track"></div>
-                                <div class="carousel-dots"></div>
+                                <div class="carousel-track">
+                                    <?php foreach ($infoPrestasiKarir as $i => $item) { ?>
+                                    <div class="carousel-slide<?= $i === 0 ? ' active' : '' ?>">
+                                        <img src="<?= e($item->foto ?? '/image/kampus.webp') ?>" alt="">
+                                        <div class="carousel-overlay">
+                                            <h3><?= e($item->judul_berita) ?></h3>
+                                            <span class="carousel-date"><?= \Carbon\Carbon::parse($item->tanggal)->locale('id')->translatedFormat('l, d F Y') ?></span>
+                                        </div>
+                                    </div>
+                                    <?php } ?>
+                                </div>
+                                <div class="carousel-dots">
+                                    <?php foreach ($infoPrestasiKarir as $i => $item) { ?>
+                                    <span class="dot<?= $i === 0 ? ' active' : '' ?>" data-slide="<?= $i ?>"></span>
+                                    <?php } ?>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -95,10 +118,24 @@
                 <div class="info-news-wrapper" data-animate>
                     <div class="info-card">
                         <div class="info-grid info-grid-flip">
-                            <div class="info-carousel" data-category="event-prestasi">
+                            <div class="info-carousel" data-category="events">
                                 <a href="/berita" class="btn-lihat-semua">Lihat Semua ↗</a>
-                                <div class="carousel-track"></div>
-                                <div class="carousel-dots"></div>
+                                <div class="carousel-track">
+                                    <?php foreach ($infoEvent as $i => $item) { ?>
+                                    <div class="carousel-slide<?= $i === 0 ? ' active' : '' ?>">
+                                        <img src="<?= e($item->foto ?? '/image/kampus.webp') ?>" alt="">
+                                        <div class="carousel-overlay">
+                                            <h3><?= e($item->judul_berita) ?></h3>
+                                            <span class="carousel-date"><?= \Carbon\Carbon::parse($item->tanggal)->locale('id')->translatedFormat('l, d F Y') ?></span>
+                                        </div>
+                                    </div>
+                                    <?php } ?>
+                                </div>
+                                <div class="carousel-dots">
+                                    <?php foreach ($infoEvent as $i => $item) { ?>
+                                    <span class="dot<?= $i === 0 ? ' active' : '' ?>" data-slide="<?= $i ?>"></span>
+                                    <?php } ?>
+                                </div>
                             </div>
 
                             <div class="info-article">
@@ -123,6 +160,11 @@
                     <span class="gallery-badge">GALERI KAMPUS</span>
                 </div>
                 <div class="gallery-grid">
+                    <?php foreach ($galeriTerbaru as $item) { ?>
+                    <div class="gallery-item" data-animate>
+                        <div class="gallery-image"><img src="<?= e($item->foto ?? '/image/kampus.webp') ?>" alt=""></div>
+                    </div>
+                    <?php } ?>
                 </div>
                     </div>
             </div>
