@@ -196,5 +196,16 @@
         <script type="module" src="<?= \Illuminate\Support\Facades\Vite::asset('resources/js/app.js') ?>"></script>
         <script src="/js/home.js"></script>
         <script src="/js/hero.js"></script>
+        <script>
+        (function(){
+            var navbar = document.querySelector('.navbar');
+            if (navbar) {
+                navbar.classList.toggle('scrolled', window.scrollY > 50);
+                window.addEventListener('scroll', function(){
+                    navbar.classList.toggle('scrolled', window.scrollY > 50);
+                });
+            }
+        })();
+        </script>
     </body>
     </html>
