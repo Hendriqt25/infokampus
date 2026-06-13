@@ -52,7 +52,10 @@ function apiFetch(url, options = {}) {
 
     return fetch(url, merged).then(res => {
         if (!res.ok) {
-            return res.json().then(err => { throw err; });
+            return res.text().then(text => {
+                try { var json = JSON.parse(text); throw json; }
+                catch (e) { if (e instanceof SyntaxError) throw new Error(res.status + ' ' + res.statusText); else throw e; }
+            });
         }
         return res.json();
     });
@@ -67,9 +70,12 @@ function apiPost(url, formData) {
 }
 
 function apiPut(url, formData) {
-    return apiFetch(url, { method: 'PUT', body: formData });
+    return apiFetch(url, { method: 'POST', body: formData });
 }
 
 function apiDelete(url) {
-    return apiFetch(url, { method: 'DELETE' });
+    var formData = new FormData();
+    formData.append('_token', getCsrfToken());
+    formData.append('_method', 'DELETE');
+    return apiFetch(url, { method: 'POST', body: formData });
 }

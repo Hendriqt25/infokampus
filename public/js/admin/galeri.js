@@ -14,14 +14,14 @@ document.addEventListener('DOMContentLoaded', function () {
                     showToast(res.success || 'Galeri berhasil diubah.', 'success');
                     setTimeout(function () { window.location.reload(); }, 1500);
                 }).catch(function (err) {
-                    showToast(translateErrors(err.errors || {}), 'error');
+                    showToast(err.message || translateErrors(err.errors || {}), 'error');
                 });
             } else {
                 apiPost('/admin/galeriadmin', formData).then(function (res) {
                     showToast(res.success || 'Galeri berhasil ditambahkan.', 'success');
                     setTimeout(function () { window.location.reload(); }, 1500);
                 }).catch(function (err) {
-                    showToast(translateErrors(err.errors || {}), 'error');
+                    showToast(err.message || translateErrors(err.errors || {}), 'error');
                 });
             }
         });
