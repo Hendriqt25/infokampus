@@ -121,6 +121,7 @@
             <h2 id="modalTitle">Tambah Berita</h2>
         </div>
         <form method="POST" action="/admin/beritaadmin" id="formBerita" enctype="multipart/form-data">
+            <?= csrf_field() ?>
             <input type="hidden" name="_method" value="POST" id="methodField">
             <input type="hidden" name="id" id="fieldId">
             <div class="modal-body">

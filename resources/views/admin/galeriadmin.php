@@ -111,6 +111,7 @@
             <h2 id="modalTitle">Tambah Galeri</h2>
         </div>
         <form method="POST" action="/admin/galeriadmin" id="formGaleri" enctype="multipart/form-data">
+            <?= csrf_field() ?>
             <input type="hidden" name="_method" value="POST" id="methodField">
             <div class="modal-body">
                 <div class="form-group">
