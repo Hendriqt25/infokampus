@@ -1,0 +1,94 @@
+.call-page {
+    display: flex;
+    justify-content: center;
+    padding: 80px 10%;
+}
+
+.call-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 48px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+    max-width: 560px;
+    width: 100%;
+}
+
+.call-header {
+    text-align: center;
+    margin-bottom: 36px;
+}
+
+.call-header h2 {
+    font-size: 28px;
+    color: #222;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+}
+
+.call-header p {
+    color: #666;
+    font-size: 15px;
+}
+
+.call-items {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.call-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 20px;
+    border-radius: 12px;
+    background: #fff7ed;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease, opacity 0.5s ease;
+}
+
+.call-item:hover {
+    background: #ffedd5;
+    transform: translateY(-2px);
+}
+
+.call-item:nth-child(1) { transition-delay: 0s; }
+.call-item:nth-child(2) { transition-delay: 0.1s; }
+.call-item:nth-child(3) { transition-delay: 0.2s; }
+
+.call-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: #f97316;
+    color: #ffffff;
+    flex-shrink: 0;
+}
+
+.call-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.call-text strong {
+    font-size: 15px;
+    color: #222;
+}
+
+.call-text span {
+    font-size: 14px;
+    color: #666;
+}
+
+@media (max-width: 768px) {
+    .call-page {
+        padding: 40px 6%;
+    }
+
+    .call-card {
+        padding: 28px 20px;
+    }
+}
