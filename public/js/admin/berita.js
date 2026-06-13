@@ -10,14 +10,14 @@ document.addEventListener('DOMContentLoaded', function () {
             const formData = new FormData(this);
 
             if (method === 'PUT') {
-                apiPut('/api/admin/berita/' + id, formData).then(function (res) {
+                apiPut('/admin/beritaadmin/' + id, formData).then(function (res) {
                     showToast(res.success || 'Berita berhasil diubah.', 'success');
                     setTimeout(function () { window.location.reload(); }, 1500);
                 }).catch(function (err) {
                     showToast(translateErrors(err.errors || {}), 'error');
                 });
             } else {
-                apiPost('/api/admin/berita', formData).then(function (res) {
+                apiPost('/admin/beritaadmin', formData).then(function (res) {
                     showToast(res.success || 'Berita berhasil ditambahkan.', 'success');
                     setTimeout(function () { window.location.reload(); }, 1500);
                 }).catch(function (err) {
@@ -89,7 +89,7 @@ function closeHapusModal() {
 
 function confirmHapus() {
     if (deleteId) {
-        apiDelete('/api/admin/berita/' + deleteId).then(function (res) {
+        apiDelete('/admin/beritaadmin/' + deleteId).then(function (res) {
             showToast(res.success || 'Berita berhasil dihapus.', 'success');
             setTimeout(function () { window.location.reload(); }, 1500);
         }).catch(function (err) {

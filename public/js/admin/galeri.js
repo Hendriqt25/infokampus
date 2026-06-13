@@ -10,14 +10,14 @@ document.addEventListener('DOMContentLoaded', function () {
             const formData = new FormData(this);
 
             if (method === 'PUT') {
-                apiPut('/api/admin/galeri/' + (id ? id.value : ''), formData).then(function (res) {
+                apiPut('/admin/galeriadmin/' + (id ? id.value : ''), formData).then(function (res) {
                     showToast(res.success || 'Galeri berhasil diubah.', 'success');
                     setTimeout(function () { window.location.reload(); }, 1500);
                 }).catch(function (err) {
                     showToast(translateErrors(err.errors || {}), 'error');
                 });
             } else {
-                apiPost('/api/admin/galeri', formData).then(function (res) {
+                apiPost('/admin/galeriadmin', formData).then(function (res) {
                     showToast(res.success || 'Galeri berhasil ditambahkan.', 'success');
                     setTimeout(function () { window.location.reload(); }, 1500);
                 }).catch(function (err) {
@@ -93,7 +93,7 @@ function closeHapusModal() {
 
 function confirmHapus() {
     if (deleteId) {
-        apiDelete('/api/admin/galeri/' + deleteId).then(function (res) {
+        apiDelete('/admin/galeriadmin/' + deleteId).then(function (res) {
             showToast(res.success || 'Galeri berhasil dihapus.', 'success');
             setTimeout(function () { window.location.reload(); }, 1500);
         }).catch(function (err) {

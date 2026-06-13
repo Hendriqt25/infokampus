@@ -1,15 +1,6 @@
-function getApiToken() {
-    var token = sessionStorage.getItem('api_token');
-    if (token) return Promise.resolve(token);
-    return fetch('/api/token', { method: 'POST', headers: { 'Accept': 'application/json' } })
-        .then(function (r) {
-            if (!r.ok) throw new Error('Gagal mendapatkan token');
-            return r.json();
-        })
-        .then(function (data) {
-            sessionStorage.setItem('api_token', data.token);
-            return data.token;
-        });
+function getCsrfToken() {
+    const meta = document.querySelector('meta[name="csrf-token"]');
+    return meta ? meta.getAttribute('content') : '';
 }
 
 function showToast(message, type) {
@@ -41,31 +32,29 @@ function translateErrors(errors) {
     return list.join('\n');
 }
 
-function apiFetch(url, options) {
-    return getApiToken().then(function (token) {
-        var defaults = {
-            headers: {
-                'Accept': 'application/json',
-                'Authorization': 'Bearer ' + token,
-            },
-        };
+function apiFetch(url, options = {}) {
+    const defaults = {
+        headers: {
+            'Accept': 'application/json',
+            'X-CSRF-TOKEN': getCsrfToken(),
+        },
+    };
 
-        if (options && options.body instanceof FormData) {
-            delete defaults.headers['Content-Type'];
+    if (options.body instanceof FormData) {
+        delete defaults.headers['Content-Type'];
+    }
+
+    const merged = {
+        ...defaults,
+        ...options,
+        headers: { ...defaults.headers, ...options.headers },
+    };
+
+    return fetch(url, merged).then(res => {
+        if (!res.ok) {
+            return res.json().then(err => { throw err; });
         }
-
-        var merged = {
-            ...defaults,
-            ...options,
-            headers: { ...defaults.headers, ...(options ? options.headers : {}) },
-        };
-
-        return fetch(url, merged).then(function (res) {
-            if (!res.ok) {
-                return res.json().then(function (err) { throw err; });
-            }
-            return res.json();
-        });
+        return res.json();
     });
 }
 
